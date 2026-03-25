@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard - Bibliothèque</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="dashboard-container">
+    <h2>📚 Dashboard Bibliothèque</h2>
+    <p>Total livres : <strong th:text="${total}"></strong></p>
+
+    <!-- Formulaire ajout -->
+    <h3>Ajouter un livre</h3>
+    <form action="/dashboard/ajouter" method="post">
+        <input type="text" name="titre" placeholder="Titre" required/>
+        <input type="text" name="auteur" placeholder="Auteur" required/>
+        <input type="text" name="isbn" placeholder="ISBN"/>
+        <input type="number" name="annee" placeholder="Année"/>
+        <button type="submit">Ajouter</button>
+    </form>
+
+    <!-- Liste des livres -->
+    <h3>Liste des livres</h3>
+    <table>
+        <thead>
+        <tr>
+            <th>Titre</th>
+            <th>Auteur</th>
+            <th>ISBN</th>
+            <th>Année</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="livre : ${livres}">
+            <td th:text="${livre.titre}"></td>
+            <td th:text="${livre.auteur}"></td>
+            <td th:text="${livre.isbn}"></td>
+            <td th:text="${livre.annee}"></td>
+            <td>
+                <a th:href="@{/dashboard/supprimer/{id}(id=${livre.id})}">
+                    Supprimer
+                </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
